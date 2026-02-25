@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chat Viewer</title>
+<title>Agent Chat Viewer</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -378,7 +378,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Inter','Helv
   <!-- Header -->
   <div class="header">
     <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="11" rx="3"/><path d="M8 10h8M8 13h6M6 17v3l3-3"/></svg>
-    <span class="header-title" id="headerTitle">Chat Viewer</span>
+    <span class="header-title" id="headerTitle">Agent Chat Viewer</span>
     <div class="header-divider"></div>
     <span class="header-desc" id="headerDesc">ディレクトリを選択して監視を開始</span>
     <div class="header-right">
@@ -409,7 +409,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Inter','Helv
           <div class="welcome-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="11" rx="3"/><path d="M8 10h8M8 13h6M6 17v3l3-3"/></svg>
           </div>
-          <h2>Chat Viewer</h2>
+          <h2>Agent Chat Viewer</h2>
           <p>ローカルディレクトリを選択すると、配下のJSONファイルをリアルタイムに監視し、チャットを表示します。</p>
           <button class="btn" id="selectDirBtn" onclick="selectDirectory()">ディレクトリを選択</button>
           <p style="font-size:12px;color:var(--text-muted)">Chrome / Edge で動作します（File System Access API）</p>
@@ -610,7 +610,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Inter','Helv
     html += '<button class="user-picker-global" id="pickerGlobal">' + ICON_BUBBLE + 'グローバル表示</button>';
     html += '<p style="font-size:12px;color:var(--text-muted);margin-top:-8px">すべてのメッセージを時系列で一覧表示</p>';
     html += '<div class="user-picker-divider">ログインして表示</div>';
-    html += '<p style="margin-top:-8px">ユーザーを選ぶとDM形式で表示されます</p>';
+    html += '<p style="margin-top:-8px">ユーザーを選ぶとダイレクトメッセージ形式で表示されます</p>';
     html += '<div class="user-picker-grid">';
     for (const name of users) {
       const color = resolveColor(null, name);
@@ -921,7 +921,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Inter','Helv
       if (!users.has(msg.from)) users.set(msg.from, { color: msg._color, count: 0 });
       users.get(msg.from).count++;
     }
-    let html = '<div class="sidebar-section">参加ユーザー</div>';
+    let html = '<div class="sidebar-section">チームメンバー</div>';
     html += '<div style="padding:0 10px 10px">';
     for (const [name, info] of [...users.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
       html += `<div class="user-item">` +
