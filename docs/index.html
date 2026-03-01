@@ -411,17 +411,10 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Inter','Helv
   }
   async function fetchJson(url) { const res = await fetch(url, { cache: 'no-store' }); return res.json(); }
   async function listInboxFiles() {
-    const res = await fetch(`${INBOX_BASE}/`, { cache: 'no-store' });
-    const html = await res.text();
-    const files = [];
-    const re = /href\s*=\s*["']([^"']+\.json)["']/gi;
-    let m;
-    while ((m = re.exec(html)) !== null) {
-      const href = m[1].split('?')[0].split('#')[0];
-      const name = href.substring(href.lastIndexOf('/') + 1);
-      if (name.endsWith('.json')) files.push(name);
-    }
-    return [...new Set(files)].sort();
+    const res = await fetch(`${INBOX_BASE}/index.json`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to load inbox manifest');
+    const files = await res.json();
+    return files.filter(f => f.endsWith('.json')).sort();
   }
   async function loadAllFiles() {
     const files = await listInboxFiles();
